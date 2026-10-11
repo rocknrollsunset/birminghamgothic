@@ -1,0 +1,142 @@
+/* Birmingham Gothic. Colors and type come straight off the cover of The Gravedigger's Siren. */
+@font-face { font-family: "EB Garamond"; src: url("fonts/eb-garamond-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "EB Garamond"; src: url("fonts/eb-garamond-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "EB Garamond"; src: url("fonts/eb-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+
+:root {
+  --sky: #030406;       /* top of the cover's night sky */
+  --ground: #000;       /* the cedars and the dirt */
+  --clay: #1c1110;      /* red clay, six feet down */
+  --bone: #ece5d3;      /* title type */
+  --bone-dim: #b8b1a2;  /* tagline type */
+  --aluminum: #b3b7be;  /* the acetate */
+  --blood: #9c0f16;
+  --beacon: #ff3b30;    /* the tower light and the request-line bulb */
+  --measure: 34rem;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--ground); color-scheme: dark; }
+body {
+  margin: 0;
+  font: 400 1.25rem/1.6 "EB Garamond", Georgia, "Times New Roman", serif;
+  color: var(--bone);
+  background: linear-gradient(to bottom, var(--ground) 0, var(--ground) 60%, var(--clay) 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: var(--bone); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { color: #fff; }
+:focus-visible { outline: 2px solid var(--bone); outline-offset: 4px; border-radius: 2px; }
+cite { font-style: italic; }
+
+/* ---------------------------------------------------------------- hero */
+.hero {
+  position: relative;
+  height: 100vh; height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--sky);
+  container-type: size;
+  display: flex; flex-direction: column; align-items: center;
+}
+.stage {
+  /* behaves like object-fit: cover, so the painted layers and the live ones stay registered */
+  --ratio: 2.3333;
+  --disc: 18.06%;          /* disc frame width as a share of the stage width */
+  --tx: 68%; --ty-top: 59%; --ty-mid: 71.7%;
+  position: absolute; left: 50%; top: 50%;
+  width: max(100cqw, calc(100cqh * var(--ratio)));
+  aspect-ratio: 6300 / 2700;
+  transform: translate(-50%, -50%);
+}
+@media (max-aspect-ratio: 4/5) {
+  .stage { --ratio: 0.5556; --disc: 75.87%; --tx: 86%; aspect-ratio: 1500 / 2700; }
+}
+.layer { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.disc { position: absolute; left: 50%; top: 54%; width: var(--disc); aspect-ratio: 1; transform: translate(-50%, -50%); }
+.disc img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.turn { animation: drop 2.6s cubic-bezier(.15, .7, .3, 1) both, backwards 30s linear 3.4s infinite; }
+@keyframes drop { from { transform: rotate(0deg); } to { transform: rotate(560deg); } }
+@keyframes backwards { from { transform: rotate(560deg); } to { transform: rotate(200deg); } }
+
+.light { position: absolute; left: var(--tx); width: 0.3%; aspect-ratio: 1; border-radius: 50%;
+  background: var(--beacon); transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px 2px rgba(255, 59, 48, .85), 0 0 34px 14px rgba(255, 43, 32, .28); }
+.light.top { top: var(--ty-top); animation: beacon 1.8s steps(1, end) infinite; }
+.light.mid { top: var(--ty-mid); opacity: .7; }
+@media (max-aspect-ratio: 4/5) { .light { width: 1.2%; } }
+@keyframes beacon { 0% { opacity: 1; } 55% { opacity: .08; } }
+
+/* the title is set like the cover's: a tracked small line over one big word */
+.masthead { position: relative; text-align: center; padding: max(1.4rem, 5.5cqh) 1rem 0;
+  text-shadow: 0 0 18px rgba(0, 0, 0, .9); }
+h1 { margin: 0; font-weight: 500; line-height: 1; text-transform: uppercase; }
+h1 .small { display: block; font-size: max(.95rem, min(3.6cqh, 6cqw)); letter-spacing: .36em; margin-right: -.36em; }
+h1 .big { display: block; font-size: max(2.6rem, min(12.5cqh, 15cqw)); letter-spacing: .14em; margin-right: -.14em; margin-top: .08em; }
+.tagline { margin: max(.6rem, 1.6cqh) auto 0; max-width: 40rem; font-style: italic; color: var(--bone-dim);
+  font-size: max(1.05rem, min(2.5cqh, 4.6cqw)); line-height: 1.35; }
+
+.now { position: absolute; bottom: max(1.2rem, 3.5cqh); left: 50%; transform: translateX(-50%);
+  width: max-content; max-width: calc(100% - 2rem); text-align: center;
+  font-style: italic; color: var(--bone-dim); font-size: 1.1rem; text-shadow: 0 0 10px #000, 0 0 3px #000; }
+.now:hover { color: var(--bone); }
+
+/* ---------------------------------------------------------------- the book */
+main { padding: 0 1.25rem; }
+section { max-width: 62rem; margin: 0 auto; }
+h2 { font-weight: 400; font-style: italic; font-size: clamp(2rem, 4.6vw, 2.8rem); line-height: 1.1; margin: 0; }
+
+.book { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, var(--measure));
+  justify-content: center; gap: clamp(2rem, 6vw, 4.5rem); align-items: start;
+  padding: clamp(4rem, 12vh, 8rem) 0 clamp(3rem, 8vh, 6rem); }
+.cover { display: block; }
+.cover img { display: block; width: 100%; height: auto;
+  box-shadow: 0 0 0 1px rgba(236, 229, 211, .08), 0 30px 80px -20px rgba(154, 166, 184, .28); }
+.copy p { margin: 0 0 1em; }
+.copy .sub { font-style: italic; color: var(--bone-dim); margin-top: .35em; }
+.copy .place { font-style: italic; margin-top: 1.8em; }
+.copy .buy { margin-top: 2em; display: flex; flex-wrap: wrap; gap: .6rem 1.25rem; align-items: center; }
+.button { display: inline-block; padding: .55em 1.2em .6em; background: var(--bone); color: var(--ground);
+  text-decoration: none; font-weight: 500; border-radius: 2px; }
+.button:hover { background: var(--aluminum); color: var(--ground); }
+.ku { font-style: italic; color: var(--bone-dim); font-size: 1.05rem; }
+.copy .disclose { margin-top: 1.4em; font-size: .9rem; color: var(--bone-dim); }
+
+@media (max-width: 859px) {
+  .book { grid-template-columns: minmax(0, var(--measure)); }
+  .cover { width: min(62vw, 300px); margin: 0 auto; }
+}
+
+/* ---------------------------------------------------------------- excerpt, set the way the book sets it */
+.excerpt { max-width: var(--measure); padding: clamp(3rem, 8vh, 5rem) 0; }
+.stamp { display: flex; align-items: center; justify-content: center; gap: .9rem;
+  font: 400 .78rem/1 "EB Garamond", Georgia, serif; font-style: normal;
+  letter-spacing: .2em; color: var(--bone-dim); margin-bottom: 2.2rem; }
+.stamp::before, .stamp::after { content: ""; height: 1px; width: 3.2rem; background: rgba(184, 177, 162, .55); }
+.bulb { order: -1; width: .5rem; height: .5rem; border-radius: 50%; background: var(--beacon);
+  box-shadow: 0 0 10px 3px rgba(255, 59, 48, .55); margin-right: -.2rem; }
+.stamp::before { order: -2; }
+.lines p { margin: 0 0 .55em; }
+.more { margin-top: 2rem; font-style: italic; }
+
+/* ---------------------------------------------------------------- what's next, who wrote it */
+.next, .author { max-width: var(--measure); padding: clamp(2.5rem, 7vh, 4.5rem) 0; }
+.next h2, .author h2 { font-size: clamp(1.7rem, 3.6vw, 2.2rem); margin-bottom: .7rem; }
+.next p, .author p { margin: 0 0 1em; }
+.next ul { list-style: none; padding: 0; margin: 0 0 1.2em; font-size: 1.6rem; line-height: 1.35; }
+.next li { padding: .2em 0; }
+
+footer { text-align: center; padding: clamp(3rem, 10vh, 6rem) 1.25rem 2.5rem; color: var(--bone-dim); }
+.lyric { font-style: italic; margin: 0 0 1.6rem; }
+.links { list-style: none; padding: 0; margin: 0 0 1rem; display: flex; justify-content: center; flex-wrap: wrap; gap: .4rem 1.6rem; }
+.links a { color: var(--bone-dim); }
+.legal { font-size: .95rem; margin: 0; }
+
+@media (max-width: 520px) {
+  body { font-size: 1.125rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turn, .light.top { animation: none; }
+}
