@@ -120,6 +120,31 @@ h2 { font-weight: 400; font-style: italic; font-size: clamp(2rem, 4.6vw, 2.8rem)
 .lines p { margin: 0 0 .55em; }
 .more { margin-top: 2rem; font-style: italic; }
 
+/* ---------------------------------------------------------------- real hauntings */
+.hauntings { padding: clamp(3rem, 8vh, 5rem) 0; }
+.hauntings h2 { text-align: center; }
+.hauntings .intro { max-width: var(--measure); margin: 1rem auto 2.5rem; text-align: center;
+  font-style: italic; color: var(--bone-dim); }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 2.5rem); }
+.card { border: 1px solid rgba(236, 229, 211, .12); background: rgba(28, 17, 16, .55);
+  border-radius: 2px; overflow: hidden; }
+.card img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.card-body { padding: 1.25rem 1.4rem 1.4rem; }
+.card h3 { margin: 0 0 .15rem; font-weight: 500; font-size: 1.6rem; line-height: 1.2; }
+.card .address { margin: 0 0 .9rem; font-style: italic; color: var(--bone-dim); font-size: 1.05rem; }
+.card p { margin: 0 0 1em; font-size: 1.125rem; line-height: 1.55; }
+.card p:last-child { margin-bottom: 0; }
+.card .credit { font-size: .85rem; color: var(--bone-dim); font-style: italic; margin-top: 1.1rem; }
+@media (max-width: 700px) {
+  .cards { grid-template-columns: 1fr; }
+}
+
+/* ---------------------------------------------------------------- the guide */
+.guide { max-width: var(--measure); padding: clamp(2.5rem, 7vh, 4.5rem) 0; text-align: center; }
+.guide h2 { font-size: clamp(1.7rem, 3.6vw, 2.2rem); margin-bottom: .7rem; }
+.guide p { margin: 0; }
+
 /* ---------------------------------------------------------------- what's next, who wrote it */
 .next, .author { max-width: var(--measure); padding: clamp(2.5rem, 7vh, 4.5rem) 0; }
 .next h2, .author h2 { font-size: clamp(1.7rem, 3.6vw, 2.2rem); margin-bottom: .7rem; }
